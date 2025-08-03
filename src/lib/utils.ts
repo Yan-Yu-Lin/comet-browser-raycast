@@ -1,4 +1,5 @@
-import { showToast, Toast, Clipboard } from "@raycast/api";
+import { showToast, Toast, Clipboard, Image } from "@raycast/api";
+import { getFavicon } from "@raycast/utils";
 import { CometError } from "./types";
 
 export function formatUrl(url: string): string {
@@ -88,7 +89,21 @@ export async function handleError(error: unknown, context?: string): Promise<voi
   }
 }
 
-export function getTabIcon(url: string): string {
+export function getTabIcon(url: string): Image.ImageLike {
+  try {
+    // Use getFavicon from @raycast/utils for real website favicons
+    // with rounded rectangle mask for better visual consistency
+    return getFavicon(url, { 
+      mask: Image.Mask.RoundedRectangle,
+      fallback: { source: "🌐" } // Fallback emoji for sites without favicons
+    });
+  } catch {
+    return { source: "🌐" };
+  }
+}
+
+// Legacy function for backward compatibility with emoji icons
+export function getEmojiIcon(url: string): string {
   try {
     const domain = formatDomain(url);
 

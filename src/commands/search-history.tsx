@@ -1,18 +1,20 @@
 import { List, Icon } from "@raycast/api";
 import { useState, useMemo } from "react";
+import { useDebounce } from "use-debounce";
 import { useCometHistory } from "../hooks/useCometHistory";
 import { HistoryListItem } from "../components/HistoryListItem";
 import { searchEngine } from "../lib/search";
 
 export default function SearchHistory() {
   const [searchText, setSearchText] = useState("");
+  const [debouncedSearchText] = useDebounce(searchText, 250); // Slightly longer debounce for history search
 
-  const { data: history, isLoading, error } = useCometHistory("", 100);
+  const { data: history, isLoading, error } = useCometHistory("", 200); // Increased limit for better search results
 
-  // Filter history based on search text using Fuse.js
+  // Filter history based on debounced search text using Fuse.js
   const filteredHistory = useMemo(() => {
-    return searchEngine.searchHistory(searchText, history);
-  }, [searchText, history]);
+    return searchEngine.searchHistory(debouncedSearchText, history);
+  }, [debouncedSearchText, history]);
 
   if (error) {
     return (
@@ -31,7 +33,7 @@ export default function SearchHistory() {
       isLoading={isLoading}
       onSearchTextChange={setSearchText}
       searchBarPlaceholder="Search browser history..."
-      throttle
+      throttle={false} // Disable throttle since we're using debounce
     >
       {filteredHistory.length === 0 && !isLoading ? (
         <List.EmptyView

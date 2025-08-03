@@ -3,7 +3,7 @@
   "name": "comet-browser",
   "title": "Comet Browser",
   "description": "Enable one to search history and current open tabs",
-  "icon": "extension-icon.png",
+  "icon": "comet-icon.png",
   "author": "ArthurLin0906",
   "license": "MIT",
   "commands": [

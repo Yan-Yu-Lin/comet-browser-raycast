@@ -51,7 +51,12 @@ export function HistoryListItem({ entry }: HistoryListItemProps) {
       actions={
         <ActionPanel>
           <ActionPanel.Section title="Navigation">
-            <Action title="Open in Current Tab" icon={Icon.ArrowRight} onAction={openUrl} />
+            <Action 
+              title="Open in Current Tab" 
+              icon={Icon.ArrowRight} 
+              onAction={openUrl}
+              shortcut={{ modifiers: ["cmd"], key: "enter" }}
+            />
             <Action
               title="Open in New Tab"
               icon={Icon.Plus}
@@ -70,13 +75,13 @@ export function HistoryListItem({ entry }: HistoryListItemProps) {
             <Action
               title="Copy Title"
               icon={Icon.Text}
-              onAction={async () => await copyToClipboard(entry.title, "Title")}
+              onAction={async () => await copyToClipboard(entry.title || "Untitled", "Title")}
               shortcut={{ modifiers: ["cmd", "opt"], key: "c" }}
             />
             <Action
               title="Copy as Markdown"
               icon={Icon.Document}
-              onAction={async () => await copyAsMarkdown(entry.title, entry.url)}
+              onAction={async () => await copyAsMarkdown(entry.title || "Untitled", entry.url)}
               shortcut={{ modifiers: ["cmd", "shift"], key: "c" }}
             />
           </ActionPanel.Section>

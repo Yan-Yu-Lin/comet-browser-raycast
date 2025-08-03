@@ -41,7 +41,12 @@ export function TabListItem({ tab, onRefresh }: TabListItemProps) {
       actions={
         <ActionPanel>
           <ActionPanel.Section title="Navigation">
-            <Action title="Switch to Tab" icon={Icon.ArrowRight} onAction={switchToTab} />
+            <Action 
+              title="Switch to Tab" 
+              icon={Icon.ArrowRight} 
+              onAction={switchToTab}
+              shortcut={{ modifiers: ["cmd"], key: "enter" }}
+            />
             <Action
               title="Open in New Tab"
               icon={Icon.Plus}
@@ -60,13 +65,13 @@ export function TabListItem({ tab, onRefresh }: TabListItemProps) {
             <Action
               title="Copy Title"
               icon={Icon.Text}
-              onAction={async () => await copyToClipboard(tab.title, "Title")}
+              onAction={async () => await copyToClipboard(tab.title || "Untitled", "Title")}
               shortcut={{ modifiers: ["cmd", "opt"], key: "c" }}
             />
             <Action
               title="Copy as Markdown"
               icon={Icon.Document}
-              onAction={async () => await copyAsMarkdown(tab.title, tab.url)}
+              onAction={async () => await copyAsMarkdown(tab.title || "Untitled", tab.url)}
               shortcut={{ modifiers: ["cmd", "shift"], key: "c" }}
             />
           </ActionPanel.Section>
