@@ -1,6 +1,5 @@
 import { List, Icon } from "@raycast/api";
 import { useState, useMemo } from "react";
-import { useDebounce } from "use-debounce";
 import { useCometTabs } from "../hooks/useCometTabs";
 import { useCometHistory } from "../hooks/useCometHistory";
 import { TabListItem } from "../components/TabListItem";
@@ -10,17 +9,16 @@ import { SearchResult, CometTab, CometHistoryEntry } from "../lib/types";
 
 export default function SearchComet() {
   const [searchText, setSearchText] = useState("");
-  const [debouncedSearchText] = useDebounce(searchText, 200); // Optimized debounce for unified search
 
   const { tabs, isLoading: isLoadingTabs, refresh } = useCometTabs();
   const { data: history, isLoading: isLoadingHistory, error } = useCometHistory("", 100); // Increased limit for better unified search
 
   const isLoading = isLoadingTabs || isLoadingHistory;
 
-  // Combine and search tabs and history with debounced search text
+  // Combine and search tabs and history with search text directly
   const searchResults = useMemo(() => {
-    return searchEngine.search(debouncedSearchText, tabs, history);
-  }, [debouncedSearchText, tabs, history]);
+    return searchEngine.search(searchText, tabs, history);
+  }, [searchText, tabs, history]);
 
   // Group results by type
   const { tabResults, historyResults } = useMemo(() => {
@@ -48,7 +46,9 @@ export default function SearchComet() {
       isLoading={isLoading}
       onSearchTextChange={setSearchText}
       searchBarPlaceholder="Search tabs and history in Comet..."
-      throttle={false} // Disable throttle since we're using debounce
+      throttle
+      searchText={searchText}
+      filtering={false}
     >
       {searchResults.length === 0 && !isLoading ? (
         <List.EmptyView

@@ -1,26 +1,26 @@
 import { List, Icon } from "@raycast/api";
 import { useState, useMemo } from "react";
-import { useDebounce } from "use-debounce";
 import { useCometTabs } from "../hooks/useCometTabs";
 import { TabListItem } from "../components/TabListItem";
 import { searchEngine } from "../lib/search";
 
 export default function SearchTabs() {
   const [searchText, setSearchText] = useState("");
-  const [debouncedSearchText] = useDebounce(searchText, 200); // 200ms debounce for optimal performance
   const { tabs, isLoading, refresh } = useCometTabs();
 
-  // Filter tabs based on debounced search text for better performance
+  // Filter tabs based on search text directly for immediate response
   const filteredTabs = useMemo(() => {
-    return searchEngine.searchTabs(debouncedSearchText, tabs);
-  }, [debouncedSearchText, tabs]);
+    return searchEngine.searchTabs(searchText, tabs);
+  }, [searchText, tabs]);
 
   return (
     <List
       isLoading={isLoading}
       onSearchTextChange={setSearchText}
       searchBarPlaceholder="Search open tabs in Comet..."
-      throttle={false} // Disable throttle since we're using debounce
+      throttle
+      searchText={searchText}
+      filtering={false}
     >
       {filteredTabs.length === 0 && !isLoading ? (
         <List.EmptyView
