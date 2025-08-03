@@ -19,6 +19,8 @@ declare namespace Preferences {
   export type SearchHistory = ExtensionPreferences & {}
   /** Preferences accessible in the `search-comet` command */
   export type SearchComet = ExtensionPreferences & {}
+  /** Preferences accessible in the `new-tab` command */
+  export type NewTab = ExtensionPreferences & {}
 }
 
 declare namespace Arguments {
@@ -28,5 +30,7 @@ declare namespace Arguments {
   export type SearchHistory = {}
   /** Arguments passed to the `search-comet` command */
   export type SearchComet = {}
+  /** Arguments passed to the `new-tab` command */
+  export type NewTab = {}
 }
 

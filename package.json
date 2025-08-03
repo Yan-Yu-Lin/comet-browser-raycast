@@ -24,6 +24,12 @@
       "title": "Search Comet",
       "description": "Unified search across tabs and history",
       "mode": "view"
+    },
+    {
+      "name": "new-tab",
+      "title": "New Tab",
+      "description": "Open a new tab in Comet browser",
+      "mode": "no-view"
     }
   ],
   "dependencies": {

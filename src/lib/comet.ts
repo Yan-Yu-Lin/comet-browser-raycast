@@ -146,6 +146,30 @@ export class CometBrowser implements BrowserIntegration {
     }
   }
 
+  async openNewTab(): Promise<void> {
+    try {
+      const script = `
+        tell application "Comet"
+          if (count of windows) is 0 then
+            make new window
+          else
+            tell first window
+              make new tab
+            end tell
+          end if
+          
+          activate
+        end tell
+      `;
+
+      await this.executeAppleScript(script);
+    } catch (error) {
+      const cometError = new Error(`Failed to open new tab: ${error}`) as CometError;
+      cometError.code = "NEW_TAB_ERROR";
+      throw cometError;
+    }
+  }
+
   async isCometRunning(): Promise<boolean> {
     try {
       await this.executeAppleScript(`tell application "Comet" to get name`);
