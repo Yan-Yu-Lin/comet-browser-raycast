@@ -41,9 +41,9 @@ export function TabListItem({ tab, onRefresh }: TabListItemProps) {
       actions={
         <ActionPanel>
           <ActionPanel.Section title="Navigation">
-            <Action 
-              title="Switch to Tab" 
-              icon={Icon.ArrowRight} 
+            <Action
+              title="Switch to Tab"
+              icon={Icon.ArrowRight}
               onAction={switchToTab}
               shortcut={{ modifiers: ["cmd"], key: "enter" }}
             />

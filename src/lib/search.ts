@@ -35,7 +35,7 @@ export class SearchEngine {
 
   search(query: string, tabs: CometTab[], history: CometHistoryEntry[]): SearchResult[] {
     const normalizedQuery = query.trim().toLowerCase();
-    
+
     if (!normalizedQuery) {
       // Return all results with tabs prioritized when no search query
       return [
@@ -77,7 +77,7 @@ export class SearchEngine {
 
     // Cache the results
     this.addToCache(normalizedQuery, sortedResults);
-    
+
     return sortedResults;
   }
 

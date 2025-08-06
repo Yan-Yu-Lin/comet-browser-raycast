@@ -51,9 +51,9 @@ export function HistoryListItem({ entry }: HistoryListItemProps) {
       actions={
         <ActionPanel>
           <ActionPanel.Section title="Navigation">
-            <Action 
-              title="Open in Current Tab" 
-              icon={Icon.ArrowRight} 
+            <Action
+              title="Open in Current Tab"
+              icon={Icon.ArrowRight}
               onAction={openUrl}
               shortcut={{ modifiers: ["cmd"], key: "enter" }}
             />

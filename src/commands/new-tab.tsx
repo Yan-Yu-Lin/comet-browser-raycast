@@ -12,10 +12,10 @@ export default async function NewTab() {
 
     // Open a new tab
     await cometBrowser.openNewTab();
-    
+
     // Close Raycast window
     await closeMainWindow();
-    
+
     // Show success HUD
     await showHUD("New tab opened in Comet");
   } catch (error) {

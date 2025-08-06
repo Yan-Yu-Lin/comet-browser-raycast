@@ -5,6 +5,7 @@
   "description": "Enable one to search history and current open tabs",
   "icon": "comet-icon.png",
   "author": "ArthurLin0906",
+  "categories": ["Productivity"],
   "license": "MIT",
   "commands": [
     {

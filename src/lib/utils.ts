@@ -95,12 +95,12 @@ export function getTabIcon(url: string): Image.ImageLike {
     if (url === "newtab" || url.includes("newtab") || url === "chrome://newtab/" || url === "comet://newtab/") {
       return { source: "comet-icon.png" };
     }
-    
+
     // Use getFavicon from @raycast/utils for real website favicons
     // with rounded rectangle mask for better visual consistency
-    return getFavicon(url, { 
+    return getFavicon(url, {
       mask: Image.Mask.RoundedRectangle,
-      fallback: { source: "🌐" } // Fallback emoji for sites without favicons
+      fallback: { source: "🌐" }, // Fallback emoji for sites without favicons
     });
   } catch {
     return { source: "🌐" };
